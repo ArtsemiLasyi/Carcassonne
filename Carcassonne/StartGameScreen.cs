@@ -78,7 +78,6 @@ namespace Carcassonne
 
             var cell = GameField.getFieldCellByName("WinD", Cells);
             GameField.FillCell(1, 1, cell);
-            GameField.gameField[0, 1].graphCell.Rectangle.
         }
 
         private void UpdateGameField()
