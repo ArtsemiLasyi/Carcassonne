@@ -16,7 +16,8 @@ namespace Carcassonne
 
         protected internal void AddConnection(Client clientObject)
         {
-            clients.Add(clientObject);
+            if (clients.Count < GameSettings.MAXPLAYERS)
+                clients.Add(clientObject);
         }
         protected internal void RemoveConnection(string id)
         {
@@ -47,7 +48,6 @@ namespace Carcassonne
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
                 Disconnect();
             }
         }

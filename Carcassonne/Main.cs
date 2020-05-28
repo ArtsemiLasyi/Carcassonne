@@ -13,8 +13,6 @@ namespace Carcassonne
     /// </summary>
     public class Main : Game
     {
-        const int WIDTH = 1920;
-        const int HEIGHT = 1080;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         MenuScreen MainMenu = new MenuScreen(new List<GraphObject> { });
@@ -27,9 +25,9 @@ namespace Carcassonne
         public Main()
         {
             graphics = new GraphicsDeviceManager(this);
-            //graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = WIDTH;
-            graphics.PreferredBackBufferHeight = HEIGHT;
+            graphics.IsFullScreen = GameSettings.ISFULLSCREEN;
+            graphics.PreferredBackBufferWidth = GameSettings.WIDTH;
+            graphics.PreferredBackBufferHeight = GameSettings.HEIGHT;
             Content.RootDirectory = "Content";
         }
 
@@ -56,10 +54,10 @@ namespace Carcassonne
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            MainMenu.LoadContent(Content, WIDTH, HEIGHT);
-            GameMenu.LoadContent(Content, WIDTH, HEIGHT);
-            HelpMenu.LoadContent(Content, WIDTH, HEIGHT);
-            GameProcess.LoadContent(Content, WIDTH, HEIGHT);
+            MainMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
+            GameMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
+            HelpMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
+            GameProcess.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
             gameScreens.screenList.Add(MainMenu);
             gameScreens.screenList.Add(GameMenu);
             gameScreens.screenList.Add(HelpMenu);

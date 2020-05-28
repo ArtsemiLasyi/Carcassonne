@@ -44,6 +44,7 @@
     <Compile Include="Cell.cs" />
     <Compile Include="CellInformation.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="GameSettings.cs" />
     <Compile Include="GraphCell.cs" />
     <Compile Include="MyKeyboard.cs" />
     <Compile Include="FieldCell.cs" />
