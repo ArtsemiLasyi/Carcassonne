@@ -46,13 +46,11 @@ namespace Carcassonne
                     {
                         message = GetMessage();
                         message = String.Format("{0}: {1}", userName, message);
-                        GameGlobals.chat += message + "\r\n";
                         server.BroadcastMessage(message, this.Id);
                     }
                     catch
                     {
                         message = String.Format("{0}: left chat", userName);
-                        GameGlobals.chat += message + "\r\n";
                         server.BroadcastMessage(message, this.Id);
                         break;
                     }

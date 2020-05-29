@@ -25,7 +25,7 @@ namespace Carcassonne
         public const int WIDTH = 1920;
         public const int HEIGHT = 1080;
         public const int MAXPLAYERS = 2;
-        public const bool ISFULLSCREEN = true;
+        public const bool ISFULLSCREEN = false;
         public static GameState GAMESTATE = GameState.chat;
         public static string TEXTUREBACKGROUND = "Images/menu/treeTextureNew1";
         public static string TEXTUREEXIT = "Images/menu/menuTxtExit";
