@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Carcassonne
 {
-    public class GameScreen : Screen
+    public class LobbyScreen : Screen
     {
         SpriteFont textBlock;
         Vector2 textPosition;
@@ -17,7 +20,7 @@ namespace Carcassonne
 
 
 
-        public GameScreen(List<GraphObject> _graphobject)
+        public LobbyScreen(List<GraphObject> _graphobject)
         {
             graphList = new List<GraphObject>(_graphobject);
         }
@@ -53,11 +56,10 @@ namespace Carcassonne
 
                 if ((currentMouseState.LeftButton == ButtonState.Pressed) && MouseRect.Intersects(temp) && (_graphObject.IsButton) && (_graphObject.Color == Color.Brown))
                 {
-                    MediaPlayer.Stop();
                     if (_graphObject.Name.Equals("BACK"))
                         changeScreen = PossibleScreen.main;
-                    if (_graphObject.Name.Equals("JOIN"))
-                        changeScreen = PossibleScreen.lobby;
+                    if (_graphObject.Name.Equals("START"))
+                        changeScreen = PossibleScreen.startgame;
                     Hide();
                 }
             }
@@ -67,12 +69,13 @@ namespace Carcassonne
         public override void LoadContent(ContentManager Content, int WIDTH, int HEIGHT)
         {
             textBlock = Content.Load<SpriteFont>("Fonts/File");
-            GraphObject gameMenuBackground = new GraphObject("BACKGROUND",Content.Load<Texture2D>(GameSettings.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
+            GraphObject gameMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>(GameSettings.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
             gameMenuBackground.Scale = 4.0f;
             GraphObject gameMenuTxtBack = new GraphObject("BACK", Content.Load<Texture2D>(GameSettings.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
-            gameMenuTxtBack.Position = new Vector2(WIDTH - (2*gameMenuTxtBack.Texture.Width), 6 * HEIGHT / 7);
-            GraphObject gameMenuTxtStartGame = new GraphObject("JOIN", Content.Load<Texture2D>(GameSettings.TEXTUREJOIN), Vector2.Zero, Color.Black, true);
-            gameMenuTxtStartGame.Position = new Vector2(gameMenuTxtStartGame.Texture.Width/2, 6 * HEIGHT / 7);
+            gameMenuTxtBack.Position = new Vector2(WIDTH - (gameMenuTxtBack.Texture.Width), 6 * HEIGHT / 7);
+            GraphObject gameMenuTxtStartGame = new GraphObject("START", Content.Load<Texture2D>(GameSettings.TEXTURESTARTNEWGAME), Vector2.Zero, Color.Black, true);
+            gameMenuTxtStartGame.Position = new Vector2(gameMenuTxtStartGame.Texture.Width / 2, 6 * HEIGHT / 7);
+            gameMenuTxtStartGame.Scale = 1.3f;
             gameMenuInputForm = new GraphObject("INPUT", Content.Load<Texture2D>(GameSettings.TEXTUREINPUTFORM), Vector2.Zero, Color.Black, false);
             gameMenuInputForm.Position = new Vector2(gameMenuInputForm.Texture.Width / 2, 2 * HEIGHT / 7);
             textPosition = gameMenuInputForm.Position;

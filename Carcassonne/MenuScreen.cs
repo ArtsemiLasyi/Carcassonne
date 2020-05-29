@@ -60,11 +60,11 @@ namespace Carcassonne
         public override void LoadContent(ContentManager Content, int WIDTH, int HEIGHT)
         {
             GraphObject mainMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>(GameSettings.TEXTUREMAINBACKGROUND), Vector2.Zero, Color.White, false);
-            GraphObject mainMenuGameName = new GraphObject("LOGO", Content.Load<Texture2D>("Images/menu/menuGameNameEn"), Vector2.Zero, Color.White, false);
+            GraphObject mainMenuGameName = new GraphObject("LOGO", Content.Load<Texture2D>(GameSettings.TEXTURELOGO), Vector2.Zero, Color.White, false);
             mainMenuGameName.Position = new Vector2(WIDTH / 2 - (mainMenuGameName.Texture.Width / 2), 0);
-            GraphObject mainMenuTxtStartGame = new GraphObject("START", Content.Load<Texture2D>("Images/menu/menuTxtStartGame"), Vector2.Zero, Color.Black, true);
+            GraphObject mainMenuTxtStartGame = new GraphObject("START", Content.Load<Texture2D>(GameSettings.TEXTURENEWGAME), Vector2.Zero, Color.Black, true);
             mainMenuTxtStartGame.Position = new Vector2(WIDTH / 2 - (mainMenuTxtStartGame.Texture.Width / 2), 2 * HEIGHT / 7);
-            GraphObject mainMenuTxtHelp = new GraphObject("HELP", Content.Load<Texture2D>("Images/menu/menuTxtHelp"), Vector2.Zero, Color.Black, true);
+            GraphObject mainMenuTxtHelp = new GraphObject("HELP", Content.Load<Texture2D>(GameSettings.TEXTUREHELP), Vector2.Zero, Color.Black, true);
             mainMenuTxtHelp.Position = new Vector2(WIDTH / 2 - (mainMenuTxtHelp.Texture.Width / 2), 4 * HEIGHT / 7);
             GraphObject mainMenuTxtExit = new GraphObject("EXIT", Content.Load<Texture2D>(GameSettings.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
             mainMenuTxtExit.Position = new Vector2(WIDTH / 2 - (mainMenuTxtExit.Texture.Width / 2), 6 * HEIGHT / 7);

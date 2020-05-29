@@ -584,6 +584,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/menu/menuTxtHelp.png
 
+#begin Images/menu/menuTxtJoin.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/menu/menuTxtJoin.png
+
 #begin Images/menu/menuTxtStartGame.png
 /importer:TextureImporter
 /processor:TextureProcessor

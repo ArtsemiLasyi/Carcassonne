@@ -18,6 +18,7 @@ namespace Carcassonne
         MenuScreen MainMenu = new MenuScreen(new List<GraphObject> { });
         GameScreen GameMenu = new GameScreen(new List<GraphObject> { });
         HelpScreen HelpMenu = new HelpScreen(new List<GraphObject> { });
+        LobbyScreen LobbyMenu = new LobbyScreen(new List<GraphObject> { });
         StartGameScreen GameProcess = new StartGameScreen(new List<GraphObject> { });
         Screens gameScreens = new Screens(new List<Screen>());
         List<Song> playlist = new List<Song>();
@@ -58,10 +59,12 @@ namespace Carcassonne
             GameMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
             HelpMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
             GameProcess.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
+            LobbyMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
             gameScreens.screenList.Add(MainMenu);
             gameScreens.screenList.Add(GameMenu);
             gameScreens.screenList.Add(HelpMenu);
             gameScreens.screenList.Add(GameProcess);
+            gameScreens.screenList.Add(LobbyMenu);
             Song maintheme = Content.Load<Song>("Music/maintheme");
             Song gametheme = Content.Load<Song>("Music/Adrian von Ziegler - At the Summertide Feast");
             Song gametheme1 = Content.Load<Song>("Music/Crusader Kings II OST - In Taberna (192  kbps)");

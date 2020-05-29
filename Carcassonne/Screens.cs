@@ -21,7 +21,8 @@ namespace Carcassonne
         main = 0,
         help = 1,
         game = 2,
-        quit = 4,
-        startgame = 8,
+        quit = 3,
+        lobby = 4,
+        startgame = 5,
     }
 }
