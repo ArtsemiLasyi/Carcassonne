@@ -55,16 +55,16 @@ namespace Carcassonne
 
         public override void LoadContent(ContentManager Content, int WIDTH, int HEIGHT)
         {
-            GraphObject helpMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>(GameSettings.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
+            GraphObject helpMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>(GameGlobals.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
             helpMenuBackground.Scale = 4.0f;
-            GraphObject helpMenuTxtExit = new GraphObject("EXIT", Content.Load<Texture2D>(GameSettings.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
+            GraphObject helpMenuTxtExit = new GraphObject("EXIT", Content.Load<Texture2D>(GameGlobals.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
             GraphObject rulesA = new GraphObject("RULESA", Content.Load<Texture2D>("Images/menu/rulesA"), Vector2.Zero, Color.White, false);
             GraphObject rulesB = new GraphObject("RULESB", Content.Load<Texture2D>("Images/menu/rulesB"), Vector2.Zero, Color.White, false);
             rulesA.Scale = 1.30f;
             rulesB.Scale = 1.30f;
             rulesA.Position = new Vector2(0, 0);
             rulesB.Position = new Vector2(rulesA.Texture.Width*rulesA.Scale, 0);
-            helpMenuTxtExit.Position = new Vector2(WIDTH - (helpMenuTxtExit.Texture.Width), 6 * HEIGHT / 7);
+            helpMenuTxtExit.Position = new Vector2(WIDTH - (2*helpMenuTxtExit.Texture.Width), 6 * HEIGHT / 7);
             graphList.Add(helpMenuBackground);
             graphList.Add(helpMenuTxtExit);
             graphList.Add(rulesA);

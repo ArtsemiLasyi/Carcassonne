@@ -44,7 +44,7 @@
     <Compile Include="Cell.cs" />
     <Compile Include="CellInformation.cs" />
     <Compile Include="Client.cs" />
-    <Compile Include="GameSettings.cs" />
+    <Compile Include="GameGlobals.cs" />
     <Compile Include="GraphCell.cs" />
     <Compile Include="LobbyScreen.cs" />
     <Compile Include="MyKeyboard.cs" />
@@ -55,7 +55,6 @@
     <Compile Include="GraphObject.cs" />
     <Compile Include="HelpScreen.cs" />
     <Compile Include="MenuScreen.cs" />
-    <Compile Include="PlayerColor.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

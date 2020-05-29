@@ -26,9 +26,9 @@ namespace Carcassonne
         public Main()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = GameSettings.ISFULLSCREEN;
-            graphics.PreferredBackBufferWidth = GameSettings.WIDTH;
-            graphics.PreferredBackBufferHeight = GameSettings.HEIGHT;
+            graphics.IsFullScreen = GameGlobals.ISFULLSCREEN;
+            graphics.PreferredBackBufferWidth = GameGlobals.WIDTH;
+            graphics.PreferredBackBufferHeight = GameGlobals.HEIGHT;
             Content.RootDirectory = "Content";
         }
 
@@ -55,11 +55,11 @@ namespace Carcassonne
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            MainMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
-            GameMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
-            HelpMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
-            GameProcess.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
-            LobbyMenu.LoadContent(Content, GameSettings.WIDTH, GameSettings.HEIGHT);
+            MainMenu.LoadContent(Content, GameGlobals.WIDTH, GameGlobals.HEIGHT);
+            GameMenu.LoadContent(Content, GameGlobals.WIDTH, GameGlobals.HEIGHT);
+            HelpMenu.LoadContent(Content, GameGlobals.WIDTH, GameGlobals.HEIGHT);
+            GameProcess.LoadContent(Content, GameGlobals.WIDTH, GameGlobals.HEIGHT);
+            LobbyMenu.LoadContent(Content, GameGlobals.WIDTH, GameGlobals.HEIGHT);
             gameScreens.screenList.Add(MainMenu);
             gameScreens.screenList.Add(GameMenu);
             gameScreens.screenList.Add(HelpMenu);
@@ -117,6 +117,9 @@ namespace Carcassonne
                             break;
                         case PossibleScreen.startgame:
                             GameProcess.Show();
+                            break;
+                        case PossibleScreen.lobby:
+                            LobbyMenu.Show();
                             break;
                         case PossibleScreen.quit:
                             Exit();

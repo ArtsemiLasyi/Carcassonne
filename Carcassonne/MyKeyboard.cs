@@ -45,6 +45,8 @@ namespace Carcassonne
                             str += ".";
                         if (isNumber(key))
                             str += key.ToString().Substring(1);
+                        if (key == Keys.Space)
+                            str += " ";
                         return str;
                     }
                     catch { return str; }

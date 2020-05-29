@@ -13,10 +13,11 @@ namespace Carcassonne
     {
         static TcpListener tcpListener;                  // сервер для прослушивания
         List<Client> clients = new List<Client>();       // все подключения
+        public bool isAlive = true;
 
         protected internal void AddConnection(Client clientObject)
         {
-            if (clients.Count < GameSettings.MAXPLAYERS)
+            if (clients.Count < GameGlobals.MAXPLAYERS)
                 clients.Add(clientObject);
         }
         protected internal void RemoveConnection(string id)
@@ -34,22 +35,18 @@ namespace Carcassonne
         {
             try
             {
-                tcpListener = new TcpListener(IPAddress.Any, 8888);
+                tcpListener = new TcpListener(IPAddress.Any, GameGlobals.PORT);
                 tcpListener.Start();
+                GameGlobals.chat += "Server started at "+ GameGlobals.LocalIPAddress() +"\r\n";
 
-                while (true)
+                while (isAlive)
                 {
                     TcpClient tcpClient = tcpListener.AcceptTcpClient();
-
                     Client clientObject = new Client(tcpClient, this);
-                    Thread clientThread = new Thread(new ThreadStart(clientObject.Process));
-                    clientThread.Start();
+                    Task.Factory.StartNew(clientObject.Process);
                 }
             }
-            catch (Exception ex)
-            {
-                Disconnect();
-            }
+            catch (Exception ex) { Disconnect(); }
         }
 
         // трансляция сообщения подключенным клиентам
@@ -75,7 +72,8 @@ namespace Carcassonne
             {
                 clients[i].Close(); //отключение клиента
             }
-            Environment.Exit(0); //завершение процесса
+            clients.Clear();
+            isAlive = false;
         }
     }
 }

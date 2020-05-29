@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Carcassonne
 {
@@ -68,10 +67,10 @@ namespace Carcassonne
         {
             GameField.getInformation();
             GameField.Initialize();
-            GraphObject gameMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>(GameSettings.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
+            GraphObject gameMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>(GameGlobals.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
             gameMenuBackground.Scale = 4.0f;
-            GraphObject gameMenuTxtBack = new GraphObject("BACK", Content.Load<Texture2D>(GameSettings.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
-            gameMenuTxtBack.Position = new Vector2(WIDTH - (gameMenuTxtBack.Texture.Width)*3/4, 1 * HEIGHT / 15);
+            GraphObject gameMenuTxtBack = new GraphObject("BACK", Content.Load<Texture2D>(GameGlobals.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
+            gameMenuTxtBack.Position = new Vector2(WIDTH - (2*gameMenuTxtBack.Texture.Width), 1 * HEIGHT / 15);
             LoadCells(Cells, Content, WIDTH, HEIGHT);
             graphList.Add(gameMenuBackground);
             graphList.Add(gameMenuTxtBack);

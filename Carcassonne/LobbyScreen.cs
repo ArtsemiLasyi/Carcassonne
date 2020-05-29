@@ -14,11 +14,9 @@ namespace Carcassonne
     public class LobbyScreen : Screen
     {
         SpriteFont textBlock;
-        Vector2 textPosition;
-        string serverIP = "";
+        Vector2 messagePosition;
+        Vector2 chatPosition;
         GraphObject gameMenuInputForm;
-
-
 
         public LobbyScreen(List<GraphObject> _graphobject)
         {
@@ -31,16 +29,18 @@ namespace Carcassonne
             {
                 _graphObject.Draw(spriteBatch);
             }
-            spriteBatch.DrawString(textBlock, serverIP, textPosition, Color.Black, 0, Vector2.Zero, 4.0f, new SpriteEffects(), 0.0f);
+            spriteBatch.DrawString(textBlock, GameGlobals.message, messagePosition, Color.Black, 0, Vector2.Zero, 4.0f, new SpriteEffects(), 0.0f);
+            spriteBatch.DrawString(textBlock, GameGlobals.chat, chatPosition, Color.Black, 0, Vector2.Zero, 2.0f, new SpriteEffects(), 0.0f);
         }
 
         public override void Update(GameTime gameTime)
         {
             MouseState currentMouseState = Mouse.GetState();
             Rectangle MouseRect = new Rectangle(currentMouseState.X, currentMouseState.Y, 1, 1);
-            changeScreen = PossibleScreen.game;
+            changeScreen = PossibleScreen.lobby;
 
-            serverIP = UpdateString(serverIP);
+            GameGlobals.message = GameGlobals.UpdateString(GameGlobals.message, 23);
+
 
             foreach (GraphObject _graphObject in graphList)
             {
@@ -57,10 +57,24 @@ namespace Carcassonne
                 if ((currentMouseState.LeftButton == ButtonState.Pressed) && MouseRect.Intersects(temp) && (_graphObject.IsButton) && (_graphObject.Color == Color.Brown))
                 {
                     if (_graphObject.Name.Equals("BACK"))
+                    {
                         changeScreen = PossibleScreen.main;
-                    if (_graphObject.Name.Equals("START"))
+                        GameGlobals.Player.Disconnect();
+                        GameGlobals.StopServer();
+                        GameGlobals.Initialize();
+                        Hide();
+                    }
+                    if (_graphObject.Name.Equals("SENDTEXT"))
+                    {
+                        GameGlobals.Player.SendMessage(GameGlobals.message);
+                        GameGlobals.message = "";
+                    }
+                    if ((_graphObject.Name.Equals("START"))&&(GameGlobals.GAMESTATE == GameGlobals.GameState.game))
+                    {
                         changeScreen = PossibleScreen.startgame;
-                    Hide();
+                        Hide();
+                    }
+
                 }
             }
 
@@ -69,29 +83,26 @@ namespace Carcassonne
         public override void LoadContent(ContentManager Content, int WIDTH, int HEIGHT)
         {
             textBlock = Content.Load<SpriteFont>("Fonts/File");
-            GraphObject gameMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>(GameSettings.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
+            GraphObject gameMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>(GameGlobals.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
             gameMenuBackground.Scale = 4.0f;
-            GraphObject gameMenuTxtBack = new GraphObject("BACK", Content.Load<Texture2D>(GameSettings.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
-            gameMenuTxtBack.Position = new Vector2(WIDTH - (gameMenuTxtBack.Texture.Width), 6 * HEIGHT / 7);
-            GraphObject gameMenuTxtStartGame = new GraphObject("START", Content.Load<Texture2D>(GameSettings.TEXTURESTARTNEWGAME), Vector2.Zero, Color.Black, true);
+            GraphObject gameMenuTxtBack = new GraphObject("BACK", Content.Load<Texture2D>(GameGlobals.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
+            gameMenuTxtBack.Position = new Vector2(WIDTH - (2 * gameMenuTxtBack.Texture.Width), 1 * HEIGHT / 15);
+            GraphObject gameMenuTxtStartGame = new GraphObject("START", Content.Load<Texture2D>(GameGlobals.TEXTURESTARTNEWGAME), Vector2.Zero, Color.Black, true);
             gameMenuTxtStartGame.Position = new Vector2(gameMenuTxtStartGame.Texture.Width / 2, 6 * HEIGHT / 7);
-            gameMenuTxtStartGame.Scale = 1.3f;
-            gameMenuInputForm = new GraphObject("INPUT", Content.Load<Texture2D>(GameSettings.TEXTUREINPUTFORM), Vector2.Zero, Color.Black, false);
-            gameMenuInputForm.Position = new Vector2(gameMenuInputForm.Texture.Width / 2, 2 * HEIGHT / 7);
-            textPosition = gameMenuInputForm.Position;
+            GraphObject gameMenuSendText = new GraphObject("SENDTEXT", Content.Load<Texture2D>(GameGlobals.TEXTURESENDTEXT), Vector2.Zero, Color.Black, true);
+            gameMenuSendText.Position = new Vector2(WIDTH - (2 * gameMenuSendText.Texture.Width), 6 * HEIGHT / 7);
+            gameMenuInputForm = new GraphObject("INPUT", Content.Load<Texture2D>(GameGlobals.TEXTUREINPUTFORM), Vector2.Zero, Color.Black, false);
+            gameMenuInputForm.Position = new Vector2(gameMenuInputForm.Texture.Width / 2, 6 * HEIGHT / 7);
+            GraphObject gameMenuChat = new GraphObject("CHAT", Content.Load<Texture2D>(GameGlobals.TEXTURECHAT), Vector2.Zero, Color.White, false);
+            gameMenuChat.Position = new Vector2(WIDTH / 4, 1 * HEIGHT / 7);
+            messagePosition = gameMenuInputForm.Position;
+            chatPosition = gameMenuChat.Position;
             graphList.Add(gameMenuBackground);
             graphList.Add(gameMenuTxtBack);
             graphList.Add(gameMenuTxtStartGame);
             graphList.Add(gameMenuInputForm);
-        }
-
-        private string UpdateString(string serverIP)
-        {
-            MyKeyboard.GetCurrentState();
-            serverIP = MyKeyboard.getInput(serverIP);
-            if (serverIP.Length > 15)
-                serverIP = serverIP.Substring(0, serverIP.Length - 1);
-            return serverIP;
+            graphList.Add(gameMenuSendText);
+            graphList.Add(gameMenuChat);
         }
     }
 }

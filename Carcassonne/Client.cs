@@ -15,6 +15,7 @@ namespace Carcassonne
         string userName;
         TcpClient client;
         Server server; // объект сервера
+        public bool isAlive = true;
 
         public Client(TcpClient tcpClient, Server serverObject)
         {
@@ -29,33 +30,35 @@ namespace Carcassonne
             try
             {
                 Stream = client.GetStream();
+
                 // получаем имя пользователя
                 string message = GetMessage();
                 userName = message;
 
-                message = userName + " вошел в чат";
+                message = userName + " joined!";
+
                 // посылаем сообщение о входе в чат всем подключенным пользователям
                 server.BroadcastMessage(message, this.Id);
-                // в бесконечном цикле получаем сообщения от клиента
-                while (true)
+
+                while (isAlive)
                 {
                     try
                     {
                         message = GetMessage();
                         message = String.Format("{0}: {1}", userName, message);
+                        GameGlobals.chat += message + "\r\n";
                         server.BroadcastMessage(message, this.Id);
                     }
                     catch
                     {
-                        message = String.Format("{0}: покинул чат", userName);
+                        message = String.Format("{0}: left chat", userName);
+                        GameGlobals.chat += message + "\r\n";
                         server.BroadcastMessage(message, this.Id);
                         break;
                     }
                 }
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception ex) {}
             finally
             {
                 // в случае выхода из цикла закрываем ресурсы
@@ -67,7 +70,7 @@ namespace Carcassonne
         // чтение входящего сообщения и преобразование в строку
         private string GetMessage()
         {
-            byte[] data = new byte[64]; // буфер для получаемых данных
+            byte[] data = new byte[64];
             StringBuilder builder = new StringBuilder();
             int bytes = 0;
             do
@@ -87,6 +90,7 @@ namespace Carcassonne
                 Stream.Close();
             if (client != null)
                 client.Close();
+            isAlive = false;
         }
     }
 }
