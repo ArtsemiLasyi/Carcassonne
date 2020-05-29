@@ -56,7 +56,7 @@ namespace Carcassonne
         public override void LoadContent(ContentManager Content, int WIDTH, int HEIGHT)
         {
             GraphObject mainMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>("Images/menu/menuBack"), Vector2.Zero, Color.White, false);
-            GraphObject mainMenuTxtExit = new GraphObject("EXIT", Content.Load<Texture2D>("Images/menu/menuTxtExit"), Vector2.Zero, Color.Black, true);
+            GraphObject mainMenuTxtExit = new GraphObject("EXIT", Content.Load<Texture2D>(GameSettings.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
             GraphObject rulesA = new GraphObject("RULESA", Content.Load<Texture2D>("Images/menu/rulesA"), Vector2.Zero, Color.White, false);
             GraphObject rulesB = new GraphObject("RULESB", Content.Load<Texture2D>("Images/menu/rulesB"), Vector2.Zero, Color.White, false);
             rulesA.Scale = 1.30f;

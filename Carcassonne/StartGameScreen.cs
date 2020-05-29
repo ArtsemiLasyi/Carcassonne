@@ -68,9 +68,9 @@ namespace Carcassonne
         {
             GameField.getInformation();
             GameField.Initialize();
-            GraphObject gameMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>("Images/menu/treeTextureNew"), Vector2.Zero, Color.White, false);
+            GraphObject gameMenuBackground = new GraphObject("BACKGROUND", Content.Load<Texture2D>(GameSettings.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
             gameMenuBackground.Scale = 4.0f;
-            GraphObject gameMenuTxtBack = new GraphObject("BACK", Content.Load<Texture2D>("Images/menu/menuTxtExit"), Vector2.Zero, Color.Black, true);
+            GraphObject gameMenuTxtBack = new GraphObject("BACK", Content.Load<Texture2D>(GameSettings.TEXTUREEXIT), Vector2.Zero, Color.Black, true);
             gameMenuTxtBack.Position = new Vector2(WIDTH - (gameMenuTxtBack.Texture.Width)*3/4, 1 * HEIGHT / 15);
             LoadCells(Cells, Content, WIDTH, HEIGHT);
             graphList.Add(gameMenuBackground);

@@ -36,7 +36,6 @@ namespace Carcassonne
                 message = userName + " вошел в чат";
                 // посылаем сообщение о входе в чат всем подключенным пользователям
                 server.BroadcastMessage(message, this.Id);
-                Console.WriteLine(message);
                 // в бесконечном цикле получаем сообщения от клиента
                 while (true)
                 {
@@ -44,13 +43,11 @@ namespace Carcassonne
                     {
                         message = GetMessage();
                         message = String.Format("{0}: {1}", userName, message);
-                        Console.WriteLine(message);
                         server.BroadcastMessage(message, this.Id);
                     }
                     catch
                     {
                         message = String.Format("{0}: покинул чат", userName);
-                        Console.WriteLine(message);
                         server.BroadcastMessage(message, this.Id);
                         break;
                     }
@@ -58,7 +55,6 @@ namespace Carcassonne
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
             }
             finally
             {

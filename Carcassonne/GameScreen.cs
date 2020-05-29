@@ -67,7 +67,7 @@ namespace Carcassonne
         public override void LoadContent(ContentManager Content, int WIDTH, int HEIGHT)
         {
             textBlock = Content.Load<SpriteFont>("Fonts/File");
-            GraphObject gameMenuBackground = new GraphObject("BACKGROUND",Content.Load<Texture2D>("Images/menu/treeTextureNew"), Vector2.Zero, Color.White, false);
+            GraphObject gameMenuBackground = new GraphObject("BACKGROUND",Content.Load<Texture2D>(GameSettings.TEXTUREBACKGROUND), Vector2.Zero, Color.White, false);
             gameMenuBackground.Scale = 4.0f;
             GraphObject gameMenuTxtBack = new GraphObject("BACK", Content.Load<Texture2D>("Images/menu/menuTxtExit"), Vector2.Zero, Color.Black, true);
             gameMenuTxtBack.Position = new Vector2(WIDTH - (gameMenuTxtBack.Texture.Width), 6 * HEIGHT / 7);
