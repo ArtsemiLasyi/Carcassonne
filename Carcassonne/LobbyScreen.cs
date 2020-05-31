@@ -69,10 +69,18 @@ namespace Carcassonne
                         GameGlobals.Player.SendMessage(GameGlobals.message);
                         GameGlobals.message = "";
                     }
-                    if ((_graphObject.Name.Equals("START"))&&(GameGlobals.GAMESTATE == GameGlobals.GameState.game))
+                    if ((_graphObject.Name.Equals("START")))
                     {
-                        changeScreen = PossibleScreen.startgame;
-                        Hide();
+                        if (GameGlobals.Player.isReady == false)
+                        {
+                            GameGlobals.Player.SendMessage(GameGlobals.IAMREADY);
+                            GameGlobals.Player.isReady = true;
+                        }
+                        if (GameGlobals.GAMESTATE == GameGlobals.GameState.game)
+                        {
+                            changeScreen = PossibleScreen.startgame;
+                            Hide();
+                        }
                     }
 
                 }

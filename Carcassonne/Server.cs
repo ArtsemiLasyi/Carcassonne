@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Carcassonne
 {
@@ -26,7 +27,9 @@ namespace Carcassonne
             Client client = clients.FirstOrDefault(c => c.Id == id);
             // и удаляем его из списка подключений
             if (client != null)
+            {
                 clients.Remove(client);
+            }
         }
 
 
@@ -56,6 +59,16 @@ namespace Carcassonne
             for (int i = 0; i < clients.Count; i++)
             {
                 clients[i].Stream.Write(data, 0, data.Length); //передача данных
+            }
+        }
+
+        // трансляция сообщения подключенным клиентам
+        protected internal void BroadcastMessage(Cell cell, string id)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            for (int i = 0; i < clients.Count; i++)
+            {
+                formatter.Serialize(clients[i].Stream, cell);
             }
         }
 

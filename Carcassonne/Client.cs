@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Carcassonne
 {
@@ -15,7 +16,7 @@ namespace Carcassonne
         string userName;
         TcpClient client;
         Server server; // объект сервера
-        public bool isAlive = true;
+        private bool isAlive = true; 
 
         public Client(TcpClient tcpClient, Server serverObject)
         {
@@ -32,7 +33,9 @@ namespace Carcassonne
                 Stream = client.GetStream();
 
                 // получаем имя пользователя
-                string message = GetMessage();
+                StringBuilder stringBuilder;
+                stringBuilder = GetMessage();
+                string message = stringBuilder.ToString();
                 userName = message;
 
                 message = userName + " joined!";
@@ -44,9 +47,18 @@ namespace Carcassonne
                 {
                     try
                     {
-                        message = GetMessage();
-                        message = String.Format("{0}: {1}", userName, message);
-                        server.BroadcastMessage(message, this.Id);
+                        if (GameGlobals.GAMESTATE == GameGlobals.GameState.chat)
+                        {
+                            stringBuilder = GetMessage();
+                            message = String.Format("{0}: {1}", userName, stringBuilder.ToString());
+                            server.BroadcastMessage(message, this.Id);
+                        }
+                        else
+                        if (GameGlobals.GAMESTATE == GameGlobals.GameState.game)
+                        {
+                            BinaryFormatter formatter = new BinaryFormatter();
+                            Cell cell = (Cell)formatter.Deserialize(Stream); 
+                        }
                     }
                     catch
                     {
@@ -66,9 +78,9 @@ namespace Carcassonne
         }
 
         // чтение входящего сообщения и преобразование в строку
-        private string GetMessage()
+        private StringBuilder GetMessage()
         {
-            byte[] data = new byte[64];
+            byte[] data = new byte[1024];
             StringBuilder builder = new StringBuilder();
             int bytes = 0;
             do
@@ -78,7 +90,7 @@ namespace Carcassonne
             }
             while (Stream.DataAvailable);
 
-            return builder.ToString();
+            return builder;
         }
 
         // закрытие подключения

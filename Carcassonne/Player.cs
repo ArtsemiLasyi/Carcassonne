@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Carcassonne
 {
@@ -23,6 +24,9 @@ namespace Carcassonne
 
         public TcpClient tcpClient;
         public NetworkStream stream;
+
+        public Cell currentCell = null;
+
         public bool isReady = false;
         public bool isAlive = true;
 
@@ -69,6 +73,14 @@ namespace Carcassonne
             stream.Write(data, 0, data.Length);
         }
 
+
+        // отправка объекта
+        public void SendMessage(Cell cell)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, cell);
+        }
+
         // получение сообщений
         public void ReceiveMessage()
         {
@@ -76,7 +88,7 @@ namespace Carcassonne
             {
                 try
                 {
-                    byte[] data = new byte[64]; // буфер для получаемых данных
+                    byte[] data = new byte[1024]; // буфер для получаемых данных
                     StringBuilder builder = new StringBuilder();
                     int bytes = 0;
                     do
@@ -87,6 +99,14 @@ namespace Carcassonne
                     while (stream.DataAvailable);
 
                     string message = builder.ToString();
+                    if (message.Contains(GameGlobals.IAMREADY))
+                    {
+                        GameGlobals.playersReady += 1;
+                        if (GameGlobals.playersReady == GameGlobals.MAXPLAYERS)
+                        {
+                            GameGlobals.GAMESTATE = GameGlobals.GameState.game;
+                        }
+                    }
                     GameGlobals.chat += message + "\r\n";
                 }
                 catch (Exception ex) { Disconnect(); }

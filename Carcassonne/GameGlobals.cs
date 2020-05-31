@@ -42,6 +42,8 @@ namespace Carcassonne
         public static string[] NICKNAMES = { "PLAYER1", "PLAYER2" };
         public static string message = "";
         public static string chat = "";
+        public static string IAMREADY = "I AM READY!";
+        public static int playersReady = 0;
 
         public enum GameState
         {
