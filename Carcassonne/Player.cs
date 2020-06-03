@@ -122,19 +122,5 @@ namespace Carcassonne
             isAlive = false;
         }
 
-        /*
-        public void SendServant(int x, int y)
-        {
-            var newServant = new SentServant(x, y);
-            sentServants.Add(newServant);
-            FreeServants -= 1;
-        }
-
-        public void ReturnServant(int x, int y)
-        {
-            //DeleteServant(x, y);
-            FreeServants += 1;
-        }
-        */
     }
 }

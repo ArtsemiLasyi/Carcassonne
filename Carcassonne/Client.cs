@@ -11,11 +11,13 @@ namespace Carcassonne
 {
     public class Client
     {
-        protected internal string Id { get; private set; }
-        protected internal NetworkStream Stream { get; private set; }
+        public string Id { get; private set; }
+
+        public NetworkStream Stream { get; private set; }
+
         string userName;
         TcpClient client;
-        Server server; // объект сервера
+        Server server; 
         private bool isAlive = true; 
 
         public Client(TcpClient tcpClient, Server serverObject)
